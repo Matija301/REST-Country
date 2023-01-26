@@ -13,6 +13,7 @@ const GlobalStyle = createGlobalStyle`
 body {
   font-size: 62.5%;
   font-family: "Nunito Sans", sans-serif;
+  background-color: ${(prop) => prop.theme.color.color5};
 }
 
 `;

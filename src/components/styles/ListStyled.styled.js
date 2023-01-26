@@ -9,7 +9,7 @@ const StyledList = styled.section`
     border: none;
     position: relative;
     display: flex;
-    width: 24rem;
+    width: 32rem;
     border-radius: 5px;
   }
   .find-box svg {
@@ -26,12 +26,33 @@ const StyledList = styled.section`
     font-size: 1rem;
     text-align: left;
     width: 100%;
+    outline: none;
   }
   nav {
+    display: flex;
+    gap: 1.2rem;
     font-size: 1rem;
     padding: 0.8rem 2.4rem;
     box-shadow: 2px 2px 5px #ddd;
     margin: 0 0 0 auto;
+    cursor: pointer;
+    position: relative;
+  }
+  svg {
+    width: 1rem;
+  }
+  .listDrop {
+    position: absolute;
+    top: 130%;
+    left: 0%;
+    background-color: #fff;
+    z-index: 999;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding-left: 1.2rem;
+    line-height: 1.8;
+    border-radius: 10px;
   }
 `;
 

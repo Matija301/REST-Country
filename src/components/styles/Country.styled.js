@@ -1,18 +1,26 @@
 import styled from "styled-components";
 
-const StyledCountry = styled.section`
-  min-width: 20rem;
+const StyledCountry = styled.article`
   max-width: 40rem;
   box-shadow: 2px 2px 5px #ccc;
   border-radius: 5px;
+  .img {
+    display: flex;
+    max-width: 40rem;
+    height: 10rem;
+    justify-content: center;
+  }
   img {
     width: 100%;
   }
+
   .country-info {
+    max-width: 20rem;
     display: grid;
     grid-template-columns: 1fr;
     gap: 0.4rem;
     padding: 1.2rem;
+    padding-bottom: 2.4rem;
   }
   h3 {
     font-size: 1.2rem;

@@ -3,8 +3,10 @@ import React, { useEffect, useState } from "react";
 import { ThemeProvider } from "styled-components";
 import Header from "./components/Header";
 import List from "./components/List";
+import Loading from "./components/Loading";
 import Search from "./components/Search";
 import GlobalStyle from "./components/styles/Global";
+import { useGlobalContext } from "./context";
 
 const theme = {
   color: {
@@ -22,29 +24,32 @@ const theme = {
 };
 
 const App = () => {
-  const [data, setData] = useState([]);
+  const { setData, setLoading, loading, filterRegion } = useGlobalContext();
   async function getData() {
+    const urlAll = "https://restcountries.com/v3.1/all";
+    const region = `https://restcountries.com/v3.1/region/${filterRegion}`;
     try {
       const { data: getData } = await axios.get(
-        `https://restcountries.com/v3.1/${"all"}`
+        filterRegion === "all" ? urlAll : region
       );
       setData(getData);
+      setLoading(false);
     } catch (error) {
+      setLoading(false);
       throw new Error(error);
     }
   }
   useEffect(() => {
+    setLoading(true);
     getData();
-  }, []);
+  }, [filterRegion]);
 
   return (
     <ThemeProvider theme={theme}>
-      <>
-        <GlobalStyle></GlobalStyle>
-        <Header></Header>
-        <Search></Search>
-        <List data={data}></List>
-      </>
+      <GlobalStyle></GlobalStyle>
+      <Header></Header>
+      <Search></Search>
+      {loading ? <Loading></Loading> : <List></List>}
     </ThemeProvider>
   );
 };

@@ -1,18 +1,18 @@
 import React from "react";
 import SectionStyled from "./styles/SectionStyle.styled";
 import Country from "./Country";
-const List = ({ data }) => {
+import { useGlobalContext } from "../context";
+const List = () => {
+  const { data } = useGlobalContext();
   console.log(data);
   return (
-    <SectionStyled>
-      {data.map((item, index) => {
-        if (index > 10) {
+    <>
+      <SectionStyled>
+        {data.map((item) => {
           return <Country item={item}></Country>;
-        } else {
-          return;
-        }
-      })}
-    </SectionStyled>
+        })}
+      </SectionStyled>
+    </>
   );
 };
 

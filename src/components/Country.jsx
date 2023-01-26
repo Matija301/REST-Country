@@ -2,8 +2,7 @@ import React from "react";
 import StyledCountry from "./styles/Country.styled";
 
 const Country = ({ item }) => {
-  console.log(item);
-  const { population, region, capital, flags, name } = item;
+  const { population, region, capital, flags, name, cca2 } = item;
   function addCommas(n) {
     var rx = /(\d+)(\d{3})/;
     return String(n).replace(/^\d+/, function (w) {
@@ -14,7 +13,7 @@ const Country = ({ item }) => {
     });
   }
   return (
-    <StyledCountry>
+    <StyledCountry key={cca2}>
       <div className="img">
         <img src={flags.svg} alt={`Flag of ${name.common}`} />
       </div>

@@ -1,7 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
+import { useGlobalContext } from "../context";
 import StyledList from "./styles/ListStyled.styled";
 
 const Search = () => {
+  const { setFilterRegion, filterRegion } = useGlobalContext();
+  const [listActive, setListActive] = useState(false);
+
+  function handleClickList() {
+    setListActive(!listActive);
+  }
+
   return (
     <StyledList>
       <div className="find-box">
@@ -26,8 +34,34 @@ const Search = () => {
           placeholder="Search for country..."
         />
       </div>
-      <nav>
-        <p className="filter-list">Filter by Region</p>
+      <nav onClick={handleClickList}>
+        <p className="filter-list">
+          {filterRegion === "all"
+            ? "Filter by Region"
+            : `${filterRegion === "ame" ? "America" : filterRegion}`}
+        </p>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M19.5 8.25l-7.5 7.5-7.5-7.5"
+          />
+        </svg>
+        {listActive && (
+          <div className="listDrop">
+            <p onClick={() => setFilterRegion("Africa")}>Africa</p>
+            <p onClick={() => setFilterRegion("ame")}>America</p>
+            <p onClick={() => setFilterRegion("Asia")}>Asia</p>
+            <p onClick={() => setFilterRegion("Europe")}>Europe</p>
+            <p onClick={() => setFilterRegion("Oceania")}>Oceania</p>
+          </div>
+        )}
       </nav>
     </StyledList>
   );
