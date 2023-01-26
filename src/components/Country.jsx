@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import StyledCountry from "./styles/Country.styled";
 
 const Country = ({ item }) => {
@@ -14,9 +15,9 @@ const Country = ({ item }) => {
   }
   return (
     <StyledCountry key={cca2}>
-      <div className="img">
+      <Link className="img" to={`/info/${name.common}`}>
         <img src={flags.svg} alt={`Flag of ${name.common}`} />
-      </div>
+      </Link>
       <div className="country-info">
         <h3>{name.common}</h3>
         <p>

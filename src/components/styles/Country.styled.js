@@ -9,6 +9,11 @@ const StyledCountry = styled.article`
     max-width: 40rem;
     height: 10rem;
     justify-content: center;
+    filter: grayscale(0%);
+    transition: all 0.3s;
+  }
+  .img:hover {
+    filter: grayscale(50%);
   }
   img {
     width: 100%;

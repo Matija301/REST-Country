@@ -1,10 +1,11 @@
 import axios, { Axios } from "axios";
 import React, { useEffect, useState } from "react";
+import { Route, Routes } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
+import CountryDetails from "./components/CountryDetails";
+import Error from "./components/Error";
 import Header from "./components/Header";
-import List from "./components/List";
-import Loading from "./components/Loading";
-import Search from "./components/Search";
+import Home from "./components/Home";
 import GlobalStyle from "./components/styles/Global";
 import { useGlobalContext } from "./context";
 
@@ -24,7 +25,7 @@ const theme = {
 };
 
 const App = () => {
-  const { setData, setLoading, loading, filterRegion } = useGlobalContext();
+  const { setData, setLoading, filterRegion } = useGlobalContext();
   async function getData() {
     const urlAll = "https://restcountries.com/v3.1/all";
     const region = `https://restcountries.com/v3.1/region/${filterRegion}`;
@@ -48,8 +49,11 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <GlobalStyle></GlobalStyle>
       <Header></Header>
-      <Search></Search>
-      {loading ? <Loading></Loading> : <List></List>}
+      <Routes>
+        <Route path="/" element={<Home></Home>} />
+        <Route path="/info/:countryID" element={<CountryDetails />}></Route>
+        <Route path="*" element={<Error />}></Route>
+      </Routes>
     </ThemeProvider>
   );
 };
