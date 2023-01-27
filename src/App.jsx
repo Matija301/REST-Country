@@ -11,12 +11,14 @@ import { useGlobalContext } from "./context";
 
 const theme = {
   color: {
-    color1: " hsl(200, 15%, 8%)",
-    color2: "hsl(207, 26%, 17%)",
-    color3: "hsl(209, 23%, 22%)",
-    color4: "hsl(0, 0%, 52%)",
-    color5: "hsl(0, 0%, 98%)",
-    color6: "hsl(0, 0%, 100%)",
+    colorBackground: "#ffffff",
+    colorBody: " #ffffff",
+    colorText: "#000000",
+    colorHover: "#333",
+  },
+  shades: {
+    shade2: "#202c377a",
+    shade1: "#fafafa3b",
   },
   size: {
     size2: "1.6rem",
@@ -24,29 +26,39 @@ const theme = {
   },
 };
 
+const invertedTheme = {
+  ...theme,
+  color: {
+    colorBackground: "#2b3743",
+    colorBody: " #202d36",
+    colorText: "#f8fcfc",
+    colorHover: "#ccc",
+  },
+  shades: {
+    shade1: "#202c377a",
+    shade2: "#fafafa3b",
+  },
+};
+
 const App = () => {
-  const { setData, setLoading, filterRegion } = useGlobalContext();
-  async function getData() {
-    const urlAll = "https://restcountries.com/v3.1/all";
-    const region = `https://restcountries.com/v3.1/region/${filterRegion}`;
-    try {
-      const { data: getData } = await axios.get(
-        filterRegion === "all" ? urlAll : region
-      );
-      setData(getData);
-      setLoading(false);
-    } catch (error) {
-      setLoading(false);
-      throw new Error(error);
-    }
-  }
+  const { setLoading, filterRegion, name, lightMode, getDataCountry } =
+    useGlobalContext();
+
   useEffect(() => {
-    setLoading(true);
-    getData();
-  }, [filterRegion]);
+    let ignore = false;
+    if (!ignore) {
+      setLoading(true);
+      getDataCountry();
+    }
+    return () => (ignore = true);
+  }, [filterRegion, name]);
+
+  useEffect(() => {
+    localStorage.setItem("lightMode", lightMode);
+  }, [lightMode]);
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={lightMode === "light" ? theme : invertedTheme}>
       <GlobalStyle></GlobalStyle>
       <Header></Header>
       <Routes>

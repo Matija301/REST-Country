@@ -34,6 +34,14 @@ const StyledLoading = styled.div`
     font-size: 2rem;
     text-transform: uppercase;
   }
+  @media (max-width: 800px) {
+    width: 10rem;
+    height: 10rem;
+    margin: 5rem auto;
+    .text {
+      font-size: 1rem;
+    }
+  }
 `;
 
 export default StyledLoading;

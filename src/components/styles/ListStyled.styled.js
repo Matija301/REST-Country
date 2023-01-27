@@ -3,13 +3,17 @@ import styled from "styled-components";
 const StyledList = styled.section`
   display: flex;
   max-width: 130rem;
-  padding: 2.4rem 3.2rem;
+  padding: 2.4rem 1.6rem;
+  color: ${({ theme }) => theme.color.colorText};
   .find-box {
-    box-shadow: 2px 2px 5px #ccc;
+    background-color: ${(prop) => prop.theme.color.colorBackground};
+    box-shadow: 1px 1px 3px ${({ theme }) => theme.shades.shade2};
     border: none;
     position: relative;
     display: flex;
-    width: 32rem;
+    min-width: 25rem;
+    max-width: 32rem;
+    height: 2.8rem;
     border-radius: 5px;
   }
   .find-box svg {
@@ -20,6 +24,8 @@ const StyledList = styled.section`
   }
 
   .country-find {
+    background-color: ${(prop) => prop.theme.color.colorBackground};
+    color: ${(prop) => prop.theme.color.colorText};
     appearance: none;
     border: none;
     margin: 0 0 0 3.2rem;
@@ -33,10 +39,11 @@ const StyledList = styled.section`
     gap: 1.2rem;
     font-size: 1rem;
     padding: 0.8rem 2.4rem;
-    box-shadow: 2px 2px 5px #ddd;
+    box-shadow: 2px 2px 5px ${({ theme }) => theme.shades.shade2};
     margin: 0 0 0 auto;
     cursor: pointer;
     position: relative;
+    background-color: ${(prop) => prop.theme.color.colorBackground};
   }
   svg {
     width: 1rem;
@@ -45,7 +52,6 @@ const StyledList = styled.section`
     position: absolute;
     top: 130%;
     left: 0%;
-    background-color: #fff;
     z-index: 999;
     width: 100%;
     display: flex;
@@ -53,6 +59,18 @@ const StyledList = styled.section`
     padding-left: 1.2rem;
     line-height: 1.8;
     border-radius: 10px;
+    background-color: ${({ theme }) => theme.color.colorBackground};
+  }
+  @media (max-width: 850px) {
+    flex-direction: column;
+    gap: 2.6rem;
+    .find-box {
+      min-width: 10rem;
+    }
+
+    nav {
+      margin: 0 auto 0 0;
+    }
   }
 `;
 

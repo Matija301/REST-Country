@@ -4,9 +4,10 @@ import { Link, useParams } from "react-router-dom";
 import { useGlobalContext } from "../context";
 import Loading from "./Loading";
 import CountryDetail from "./styles/CountryInfo.styled";
+import Error from "./Error";
 
 const CountryDetails = () => {
-  const { data } = useGlobalContext();
+  const { data, setFilterRegion, getDataCountry, setData } = useGlobalContext();
   let { countryID } = useParams();
   const [loading, setLoading] = useState(true);
   const [country, setCountry] = useState([]);
@@ -36,14 +37,18 @@ const CountryDetails = () => {
 
   async function getData() {
     try {
+      const allDataCountry = await axios.get(
+        `https://restcountries.com/v3.1/all`
+      );
       const response = await axios.get(
         `https://restcountries.com/v3.1/name/${countryID}`
       );
+      setData(allDataCountry.data);
       setCountry(response.data[0]);
       setLoading(false);
     } catch (error) {
+      setCountry("Error404");
       setLoading(false);
-      throw new Error(error);
     }
   }
 
@@ -54,6 +59,11 @@ const CountryDetails = () => {
   if (loading) {
     return <Loading></Loading>;
   }
+
+  if (country === "Error404") {
+    return <Error></Error>;
+  }
+
   const {
     flags,
     name = "none",
@@ -159,7 +169,6 @@ const CountryDetails = () => {
             {borders
               ? borders.map((item) => {
                   const object = data.find(({ cca3 }) => cca3 === item);
-                  console.log(object);
                   return <p className="country-border">{object.name.common}</p>;
                 })
               : "none"}

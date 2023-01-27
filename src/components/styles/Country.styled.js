@@ -2,8 +2,11 @@ import styled from "styled-components";
 
 const StyledCountry = styled.article`
   max-width: 40rem;
-  box-shadow: 2px 2px 5px #ccc;
+  box-shadow: 2px 2px 5px ${({ theme }) => theme.shades.shade2};
   border-radius: 5px;
+  background-color: ${({ theme }) => theme.color.colorBackground};
+  color: ${({ theme }) => theme.color.colorText};
+
   .img {
     display: flex;
     max-width: 40rem;

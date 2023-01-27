@@ -4,13 +4,16 @@ import Country from "./Country";
 import { useGlobalContext } from "../context";
 const List = () => {
   const { data } = useGlobalContext();
-  console.log(data);
   return (
     <>
       <SectionStyled>
-        {data.map((item) => {
-          return <Country item={item}></Country>;
-        })}
+        {data === "Error" ? (
+          <h1>Country not found!</h1>
+        ) : (
+          data.map((item) => {
+            return <Country item={item}></Country>;
+          })
+        )}
       </SectionStyled>
     </>
   );

@@ -3,7 +3,7 @@ import { useGlobalContext } from "../context";
 import StyledList from "./styles/ListStyled.styled";
 
 const Search = () => {
-  const { setFilterRegion, filterRegion } = useGlobalContext();
+  const { setFilterRegion, filterRegion, setName, name } = useGlobalContext();
   const [listActive, setListActive] = useState(false);
 
   function handleClickList() {
@@ -29,6 +29,8 @@ const Search = () => {
         </svg>
 
         <input
+          value={name}
+          onChange={(e) => setName(e.target.value)}
           className="country-find"
           type="text"
           placeholder="Search for country..."
