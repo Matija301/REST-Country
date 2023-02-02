@@ -15,8 +15,8 @@ const Country = ({ item }) => {
   }
   return (
     <StyledCountry key={cca2}>
-      <Link className="img" to={`/info/${name.common}`}>
-        <img src={flags.svg} alt={`Flag of ${name.common}`} />
+      <Link className="img" to={`/info/${cca2}`}>
+        <img loading="lazy" src={flags.svg} alt={`Flag of ${name.common}`} />
       </Link>
       <div className="country-info">
         <h3>{name.common}</h3>

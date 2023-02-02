@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 const AppContext = React.createContext();
 function getLightMode() {
   const lightData = localStorage.getItem("lightMode");
@@ -16,6 +16,7 @@ const AppProvider = ({ children }) => {
   const [filterRegion, setFilterRegion] = useState("all");
   const [name, setName] = useState("");
   const [lightMode, setLightMode] = useState(getLightMode);
+  const [showGoHome, setShowGoHome] = useState(false);
 
   async function getDataCountry() {
     const urlAll = "https://restcountries.com/v3.1/all";
@@ -39,6 +40,25 @@ const AppProvider = ({ children }) => {
     }
   }
 
+  function scrollToTop() {
+    window.scrollTo({ left: 0, top: 0, behavior: "smooth" });
+  }
+
+  useEffect(() => {
+    const scroll = document.addEventListener("scroll", (e) => {
+      if (window.pageYOffset >= document.documentElement.clientHeight) {
+        {
+          setShowGoHome(true);
+        }
+      } else {
+        setShowGoHome(false);
+      }
+    });
+    return () => {
+      removeEventListener("scroll", scroll);
+    };
+  }, []);
+
   return (
     <AppContext.Provider
       value={{
@@ -53,6 +73,8 @@ const AppProvider = ({ children }) => {
         lightMode,
         setLightMode,
         getDataCountry,
+        showGoHome,
+        scrollToTop,
       }}
     >
       {children}

@@ -19,6 +19,8 @@ const StyledCountry = styled.article`
     filter: grayscale(50%);
   }
   img {
+    max-width: 40rem;
+    height: 10rem;
     width: 100%;
   }
 

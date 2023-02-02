@@ -17,12 +17,13 @@ const StyledLoading = styled.div`
   .ring {
     width: 100%;
     height: 100%;
-    border-left: 4px solid #262626;
+    border-left: 4px solid ${({ theme }) => theme.color.colorText};
     border-radius: 50%;
     animation: ${rotate} 1s linear infinite;
   }
 
   .text {
+    color: ${({ theme }) => theme.color.colorText};
     position: absolute;
     top: 0;
     left: 0;
@@ -40,6 +41,8 @@ const StyledLoading = styled.div`
     margin: 5rem auto;
     .text {
       font-size: 1rem;
+      top: -50%;
+      left: 0;
     }
   }
 `;

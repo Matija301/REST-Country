@@ -5,9 +5,8 @@ import { useGlobalContext } from "../context";
 import Loading from "./Loading";
 import CountryDetail from "./styles/CountryInfo.styled";
 import Error from "./Error";
-
 const CountryDetails = () => {
-  const { data, setFilterRegion, getDataCountry, setData } = useGlobalContext();
+  const { data, setData } = useGlobalContext();
   let { countryID } = useParams();
   const [loading, setLoading] = useState(true);
   const [country, setCountry] = useState([]);
@@ -41,8 +40,9 @@ const CountryDetails = () => {
         `https://restcountries.com/v3.1/all`
       );
       const response = await axios.get(
-        `https://restcountries.com/v3.1/name/${countryID}`
+        `https://restcountries.com/v3.1/alpha/${countryID}`
       );
+
       setData(allDataCountry.data);
       setCountry(response.data[0]);
       setLoading(false);
@@ -110,16 +110,16 @@ const CountryDetails = () => {
           <h2>{name.common}</h2>
           <div className="info__country">
             <div className="info-1-part info-space ">
-              <p className="bad-info-object">
+              <div className="bad-info-object">
                 <span>Native Name: </span>
                 {nativeNames.map((countryName) => {
                   return (
-                    <p>
+                    <p key={self.crypto.randomUUID()}>
                       {countryName[0]}:{countryName[1].common};
                     </p>
                   );
                 })}
-              </p>
+              </div>
               <p>
                 <span>Population: </span>
                 {addCommas(population)}
@@ -142,24 +142,24 @@ const CountryDetails = () => {
                 <span>Top level domain: </span>
                 {tld}
               </p>
-              <p className="bad-info-object">
+              <div className="bad-info-object">
                 <span>Currencies: </span>
                 {currencies
                   ? money.map((item) => {
                       return (
-                        <p>
+                        <p key={self.crypto.randomUUID()}>
                           {item[0]}:{item[1].name},{item[1].symbol};
                         </p>
                       );
                     })
                   : "none"}
-              </p>
-              <p className="bad-info-object">
+              </div>
+              <div className="bad-info-object">
                 <span>Language: </span>
                 {lang.map((item) => {
-                  return <p>{item[1]},</p>;
+                  return <p key={self.crypto.randomUUID()}>{item[1]},</p>;
                 })}
-              </p>
+              </div>
             </div>
           </div>
           <div className="border">
@@ -169,7 +169,14 @@ const CountryDetails = () => {
             {borders
               ? borders.map((item) => {
                   const object = data.find(({ cca3 }) => cca3 === item);
-                  return <p className="country-border">{object.name.common}</p>;
+                  return (
+                    <p
+                      key={self.crypto.randomUUID()}
+                      className="country-border"
+                    >
+                      {object.name.common}
+                    </p>
+                  );
                 })
               : "none"}
           </div>
