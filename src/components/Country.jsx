@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import StyledCountry from "./styles/Country.styled";
 
 const Country = ({ item }) => {
-  const { population, region, capital, flags, name, cca2 } = item;
+  const { population, region, capital, flags, name, cca2, setName } = item;
   function addCommas(n) {
     var rx = /(\d+)(\d{3})/;
     return String(n).replace(/^\d+/, function (w) {
@@ -15,7 +15,7 @@ const Country = ({ item }) => {
   }
   return (
     <StyledCountry key={cca2}>
-      <Link className="img" to={`/info/${cca2}`}>
+      <Link className="img" to={`/info/${cca2}`} onClick={() => setName("")}>
         <img loading="lazy" src={flags.svg} alt={`Flag of ${name.common}`} />
       </Link>
       <div className="country-info">
